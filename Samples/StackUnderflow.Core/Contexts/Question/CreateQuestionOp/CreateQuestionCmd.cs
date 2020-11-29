@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EarlyPay.Primitives.ValidationAttributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
 {
@@ -11,9 +13,9 @@ namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
         [Required]
         public string Body { get; private set; }
         [Required]
-        public string[] Tags { get; private set; }
+        public string Tags { get; private set; }
 
-        public CreateQuestionCmd(string title, string body, string[] tags)
+        public CreateQuestionCmd(string title, string body, string tags)
         {
             Title = title;
             Body = body;

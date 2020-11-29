@@ -1,11 +1,18 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using static StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp.CreateQuestionResult;
+using System.Threading.Tasks;
+using Access.Primitives.IO;
+using Access.Primitives.Extensions.ObjectExtensions;
+using Access.Primitives.IO.Attributes;
+using Access.Primitives.IO.Mocking;
+
 
 namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
 {
-    public partial class CreateQuestionAdapter : Adapters<CreateQuestionCmd, ICreateQuestionResult, QuestionWriteContext, QuestionDependencies>
+      class CreateQuestionAdapter : Adapter<CreateQuestionCmd, ICreateQuestionResult, QuestionWriteContext, QuestionDependencies>
     {
         public async override Task<ICreateQuestionResult> Work(CreateQuestionCmd command, QuestionWriteContext state, QuestionDependencies dependencies)
         {
@@ -15,18 +22,18 @@ namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
 
             var result = await workflow.Match(
                 Succ: r => r,
-                Fail: er => new QuestionNotCreated(er.reason)
+                Fail: er => new QuestionNotCreated(er.Message)
                 );
 
             return result;
         }
 
-        public ICreateQuestionResult AddQuestion(QuestionWriteContext state, Question question)
+        public ICreateQuestionResult AddQuestion(QuestionWriteContext state, object question)
         {
             return new QuestionCreated(new Guid("1"), "C# question", "Question about C#", "C#");
         }
 
-        public Question CreateQuestionFromCmd(CreateQuestionCmd command)
+        public object CreateQuestionFromCmd(CreateQuestionCmd command)
         {
             return new { };
         }

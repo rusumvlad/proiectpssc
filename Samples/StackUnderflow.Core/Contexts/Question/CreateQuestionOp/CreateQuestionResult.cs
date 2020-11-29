@@ -17,7 +17,7 @@ namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
             public string Body { get; private set; }
             public string Tags { get; private set; }
 
-            public QuestionCreated(Guid questionId, string title, string body, string[] tags)
+            public QuestionCreated(Guid questionId, string title, string body, string tags)
             {
                 QuestionId = questionId;
                 Title = title;
