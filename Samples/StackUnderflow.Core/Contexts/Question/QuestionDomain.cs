@@ -1,19 +1,25 @@
-﻿using System;
+﻿using Access.Primitives.IO;
+using StackUnderflow.Domain.Core.Contexts.Question.CheckLanguageOp;
+using StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp;
+using StackUnderflow.Domain.Core.Contexts.Question.SendQuestionOwnerAcknoledgementOperations;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Access.Primitives.IO;
-using LanguageExt;
-using StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp;
-using static StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp.CreateQuestionResult;
 using static PortExt;
+using static StackUnderflow.Domain.Core.Contexts.Question.CheckLanguageOp.CheckLanguageResult;
+using static StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp.CreateQuestionResult;
+using static StackUnderflow.Domain.Core.Contexts.Question.SendQuestionOwnerAcknoledgementCmd.SendQuestionOwnerAcknowledgementResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Question
+
+namespace StackUnderflow.Domain.Core.Contexts.Questions
 {
-    public static class QuestionDomain
+    public static class QuestionContext
     {
-        public static Port<ICreateQuestionResult> CreateQuestion(CreateQuestionCmd command)
-        {
-            return NewPort<CreateQuestionCmd, ICreateQuestionResult>(command);
-        }
+        public static Port<ICreateQuestionResult> CreateQuestion(CreateQuestionCmd createQuestionCmd) =>
+            NewPort<CreateQuestionCmd, ICreateQuestionResult>(createQuestionCmd);
+        public static Port<ICheckLanguageResult> CheckLanguage(CheckLanguageCmd checkLanguageCmd) =>
+            NewPort<CheckLanguageCmd, ICheckLanguageResult>(checkLanguageCmd);
+        public static Port<ISendQuestionOwnerAcknowledgementResult> SendQuestionOwnerAcknowledgment(SendQuestionOwnerAcknowledgementCmd SendQuestionOwnerAcknowledgmentCmd) =>
+            NewPort<SendQuestionOwnerAcknowledgementCmd, ISendQuestionOwnerAcknowledgementResult>(SendQuestionOwnerAcknowledgmentCmd);
     }
 }
