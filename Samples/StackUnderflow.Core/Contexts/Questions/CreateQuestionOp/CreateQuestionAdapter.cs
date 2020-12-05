@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp.CreateQuestionResult;
+using static StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp.CreateQuestionResult;
 using System.Threading.Tasks;
 using Access.Primitives.IO;
 using Access.Primitives.Extensions.ObjectExtensions;
@@ -10,7 +10,7 @@ using Access.Primitives.IO.Attributes;
 using Access.Primitives.IO.Mocking;
 
 
-namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
+namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
 {
       class CreateQuestionAdapter : Adapter<CreateQuestionCmd, ICreateQuestionResult, QuestionWriteContext, QuestionDependencies>
     {
@@ -30,7 +30,7 @@ namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
 
         public ICreateQuestionResult AddQuestion(QuestionWriteContext state, object question)
         {
-            return new QuestionCreated(new Guid("1"), "C# question", "Question about C#", "C#");
+            return new QuestionCreated(1, "C# question", "Question about C#", "C#");
         }
 
         public object CreateQuestionFromCmd(CreateQuestionCmd command)

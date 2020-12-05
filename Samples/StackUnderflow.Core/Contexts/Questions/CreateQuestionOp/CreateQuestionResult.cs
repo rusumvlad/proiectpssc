@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CSharp.Choices;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
+namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
 {
-    
+    [AsChoice]
     public static partial class CreateQuestionResult
     {
         public interface ICreateQuestionResult { }
@@ -12,12 +13,12 @@ namespace StackUnderflow.Domain.Core.Contexts.Question.CreateQuestionOp
 
         public class QuestionCreated : ICreateQuestionResult
         {
-            public Guid QuestionId { get; private set; }
+            public int QuestionId { get; private set; }
             public string Title { get; private set; }
             public string Body { get; private set; }
             public string Tags { get; private set; }
 
-            public QuestionCreated(Guid questionId, string title, string body, string tags)
+            public QuestionCreated(int questionId, string title, string body, string tags)
             {
                 QuestionId = questionId;
                 Title = title;
