@@ -18,5 +18,6 @@ namespace StackUnderflow.EF
         }
 
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Reply> Replies { get; set; }
     }
 }
