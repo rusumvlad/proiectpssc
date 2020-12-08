@@ -33,6 +33,8 @@ namespace StackUnderflow.EF.Models
         public virtual DbSet<UserBadge> UserBadge { get; set; }
         public virtual DbSet<Vote> Vote { get; set; }
         public virtual DbSet<VoteType> VoteType { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Reply> Replies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -63,6 +65,17 @@ namespace StackUnderflow.EF.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
+            });
+            modelBuilder.Entity<Question>(entity =>
+            {
+                entity.HasKey(e => new {e.QuestionId})
+            });
+            modelBuilder.Entity<Reply>(entity =>
+            {
+                entity.HasKey(e => new { e.ReplyId })
+
+                entity.HasIndex(e => e.QuestionId)
+                    .HasName("FK_Reply");
             });
 
             modelBuilder.Entity<Post>(entity =>

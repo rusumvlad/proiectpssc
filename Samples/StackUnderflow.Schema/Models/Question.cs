@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace StackUnderflow.DatabaseModel.Models
+namespace StackUnderflow.EF.Models
 {
     [Table("Question")]
     public class Question

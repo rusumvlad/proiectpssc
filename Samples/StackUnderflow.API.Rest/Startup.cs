@@ -41,7 +41,7 @@ namespace FakeSO.API.Rest
             services.AddSingleton<IExecutionContext, LiveExecutionContext>();
             services.AddTransient<IInterpreterAsync>(sp => new LiveInterpreterAsync(sp));
 
-            services.AddDbContext<DatabaseContext>(builder =>
+            services.AddDbContext<StackUnderflowContext>(builder =>
             {
                 builder.UseSqlServer(Configuration.GetConnectionString("Stackunderflow"));
             });

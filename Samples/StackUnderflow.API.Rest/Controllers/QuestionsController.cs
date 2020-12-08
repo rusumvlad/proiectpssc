@@ -23,9 +23,9 @@ namespace StackUnderflow.API.AspNetCore.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly IInterpreterAsync _interpreter;
-        private readonly DatabaseContext _dbContext;
+        private readonly StackUnderflowContext _dbContext;
 
-        public QuestionsController(IInterpreterAsync interpreter, DatabaseContext dbContext)
+        public QuestionsController(IInterpreterAsync interpreter, StackUnderflowContext dbContext)
         {
             _interpreter = interpreter;
             _dbContext = dbContext;
@@ -47,7 +47,7 @@ namespace StackUnderflow.API.AspNetCore.Controllers
 
             await _dbContext.SaveChangesAsync();
 
-            _dbContext.Questions.Add(new DatabaseModel.Models.Question { QuestionId = cmd.QuestionId, Title = cmd.Title, Body = cmd.Body, Tags = cmd.Tags });
+            _dbContext.Questions.Add(new Question { QuestionId = cmd.QuestionId, Title = cmd.Title, Body = cmd.Body, Tags = cmd.Tags });
             await _dbContext.SaveChangesAsync();
             var reply = await _dbContext.Questions.Where(r => r.QuestionId == cmd.QuestionId).SingleOrDefaultAsync();
             _dbContext.Questions.Update(reply);
@@ -71,7 +71,7 @@ namespace StackUnderflow.API.AspNetCore.Controllers
 
             var r = await _interpreter.Interpret(expr, ctx, dep);
 
-            _dbContext.Replies.Add(new DatabaseModel.Models.Reply { ReplyId = cmd.ReplyId, QuestionId = cmd.QuestionId, AuthorUserId = cmd.AuthorUserId,   Body = cmd.Body  });
+            _dbContext.Replies.Add(new Reply { ReplyId = cmd.ReplyId, QuestionId = cmd.QuestionId, AuthorUserId = cmd.AuthorUserId,   Body = cmd.Body  });
             var reply = await _dbContext.Replies.Where(r => r.ReplyId == cmd.ReplyId).SingleOrDefaultAsync();
             await _dbContext.SaveChangesAsync();
 

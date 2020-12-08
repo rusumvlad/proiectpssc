@@ -1,4 +1,4 @@
-﻿using StackUnderflow.DatabaseModel.Models;
+﻿using StackUnderflow.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
