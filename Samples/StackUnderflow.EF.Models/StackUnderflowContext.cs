@@ -68,11 +68,11 @@ namespace StackUnderflow.EF.Models
             });
             modelBuilder.Entity<Question>(entity =>
             {
-                entity.HasKey(e => new {e.QuestionId})
+                entity.HasKey(e => new { e.QuestionId });
             });
             modelBuilder.Entity<Reply>(entity =>
             {
-                entity.HasKey(e => new { e.ReplyId })
+                entity.HasKey(e => new { e.ReplyId });
 
                 entity.HasIndex(e => e.QuestionId)
                     .HasName("FK_Reply");

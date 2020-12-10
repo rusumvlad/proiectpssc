@@ -9,7 +9,6 @@ using Access.Primitives.Extensions.ObjectExtensions;
 using Access.Primitives.IO.Attributes;
 using Access.Primitives.IO.Mocking;
 
-
 namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
 {
       class CreateQuestionAdapter : Adapter<CreateQuestionCmd, ICreateQuestionResult, QuestionWriteContext, QuestionDependencies>

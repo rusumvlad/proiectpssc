@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CheckLanguageOp
+namespace StackUnderflow.Domain.Schema.Contexts.Questions.CheckLanguageOp
 {
     [AsChoice]
     public static partial class CheckLanguageResult

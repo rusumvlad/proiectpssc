@@ -22,6 +22,8 @@ using OpenTracing.Util;
 using StackUnderflow.Backoffice.Adapters.CreateTenant;
 using StackUnderflow.EF.Models;
 using StackUnderflow.EF;
+using Orleans;
+using Orleans.Hosting;
 
 namespace FakeSO.API.Rest
 {
@@ -47,6 +49,8 @@ namespace FakeSO.API.Rest
             });
 
             services.AddControllers();
+
+            services.AddSingleton(sp => GetSiloClusterClient());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +69,23 @@ namespace FakeSO.API.Rest
             {
                 endpoints.MapControllers();
             });
+        }
+        private static IClusterClient GetSiloClusterClient()
+        {
+            //ApplicationPartManagerCodeGenExtensions
+
+            var client = new ClientBuilder()
+                .UseLocalhostClustering()
+                .ConfigureApplicationParts(parts =>
+                {
+                    parts.AddApplicationPart(typeof(GrainInterfaces.IHello).Assembly)
+                    .WithReferences()
+                    ;
+                })
+                //.AddRedisStreams("RedisProvider", c => c.ConfigureRedis(options => options.ConnectionString = "localhost"))
+                .Build();
+            client.Connect().Wait();
+            return client;
         }
     }
 }

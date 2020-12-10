@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static PortExt;
-using static StackUnderflow.Domain.Core.Contexts.Questions.CheckLanguageOp.CheckLanguageResult;
+using static StackUnderflow.Domain.Schema.Contexts.Questions.CheckLanguageOp.CheckLanguageResult;
 using static StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp.CreateQuestionResult;
-using static StackUnderflow.Domain.Core.Contexts.Questions.SendQuestionOwnerAcknoledgementCmd.SendQuestionOwnerAcknowledgementResult;
+using static StackUnderflow.Domain.Schema.Contexts.Questions.SendQuestionOwnerAcknoledgementCmd.SendQuestionOwnerAcknowledgementResult;
 using static StackUnderflow.Domain.Schema.Questions.CreateAnswerOp.CreateReplyResult;
 using static StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp.SendReplyAuthorAcknowledgementResult;
 

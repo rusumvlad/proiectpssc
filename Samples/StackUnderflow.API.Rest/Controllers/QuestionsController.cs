@@ -13,8 +13,11 @@ using LanguageExt;
 using Microsoft.AspNetCore.Http;
 using StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp;
 using StackUnderflow.Domain.Schema.Questions.CreateAnswerOp;
+using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
 using StackUnderflow.EF;
 using Microsoft.EntityFrameworkCore;
+using Orleans;
+using StackUnderflow.Domain.Core.Contexts.Questions.CheckLanguageOp;
 
 namespace StackUnderflow.API.AspNetCore.Controllers
 {
@@ -49,8 +52,6 @@ namespace StackUnderflow.API.AspNetCore.Controllers
 
             _dbContext.Questions.Add(new Question { QuestionId = cmd.QuestionId, Title = cmd.Title, Body = cmd.Body, Tags = cmd.Tags });
             await _dbContext.SaveChangesAsync();
-            var reply = await _dbContext.Questions.Where(r => r.QuestionId == cmd.QuestionId).SingleOrDefaultAsync();
-            _dbContext.Questions.Update(reply);
 
             return r.Match(
                 succ => (IActionResult)Ok("Question was added!"),
@@ -62,11 +63,15 @@ namespace StackUnderflow.API.AspNetCore.Controllers
         public async Task<IActionResult> CreateReply([FromBody] CreateReplyCmd cmd)
         {
             var dep = new QuestionDependencies();
-            //var ctx = new QuestionsWriteContext();
-            var replies = await _dbContext.Replies.ToListAsync();
-            var ctx = new QuestionWriteContext(replies);
 
+            var replies = await _dbContext.Replies.ToListAsync();
+            // var ctx = new QuestionWriteContext(replies);
+
+            _dbContext.Replies.AttachRange(replies);
+            var ctx = new QuestionWriteContext(new EFList<Reply>(_dbContext.Replies));
             var expr = from createTenantResult in QuestionContext.CreateReply(cmd)
+                       from checkLanguageResult in QuestionContext.CheckLanguage(new CheckLanguageCmd(cmd.Body))
+                       from sendAckAuthor in QuestionContext.SendReplyAuthorAcknowledgement(new SendReplyAuthorAcknowledgementCmd(Guid.NewGuid(), 1, 2))
                        select createTenantResult;
 
             var r = await _interpreter.Interpret(expr, ctx, dep);

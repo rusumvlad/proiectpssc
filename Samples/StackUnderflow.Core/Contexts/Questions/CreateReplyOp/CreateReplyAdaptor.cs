@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static StackUnderflow.Domain.Schema.Questions.CreateAnswerOp.CreateReplyResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateReplyOp
+namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateAnswerOp
 {
     public class CreateReplyAdaptor : Adapter<CreateReplyCmd, ICreateReplyResult, QuestionWriteContext, QuestionDependencies>
     {
