@@ -12,8 +12,10 @@ using Access.Primitives.EFCore;
 using LanguageExt;
 using Microsoft.AspNetCore.Http;
 using StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp;
+using StackUnderflow.Domain.Core.Contexts.Questions.SendQuestionOwnerAcknoledgementOperations;
 using StackUnderflow.Domain.Schema.Questions.CreateAnswerOp;
 using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
+using StackUnderflow.Domain.Schema.Questions.SendQuestionOwnerAcknoledgementOperations;
 using StackUnderflow.EF;
 using Microsoft.EntityFrameworkCore;
 using Orleans;
@@ -42,8 +44,11 @@ namespace StackUnderflow.API.AspNetCore.Controllers
             var questions = await _dbContext.Questions.ToListAsync();
 
             var ctx = new QuestionWriteContext(questions);
+            _dbContext.Questions.AttachRange(questions);
 
             var expr = from createTenantResult in QuestionContext.CreateQuestion(cmd)
+                       from checkLanguageResult in QuestionContext.CheckLanguage(new CheckLanguageCmd(cmd.Body))
+                       from sendAckAuthor in QuestionContext.SendQuestionOwnerAcknowledgment(new SendQuestionOwnerAcknowledgementCmd(1, 2))
                        select createTenantResult;
 
             var r = await _interpreter.Interpret(expr, ctx, dep);

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StackUnderflow.Domain.Schema.Contexts.Questions.SendQuestionOwnerAcknoledgementCmd
+namespace StackUnderflow.Domain.Schema.Questions.SendQuestionOwnerAcknoledgementOperations
 {
     [AsChoice]
     public static partial class SendQuestionOwnerAcknowledgementResult

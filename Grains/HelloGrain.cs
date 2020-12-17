@@ -18,7 +18,7 @@ namespace Grains
 
         async Task<string> IHello.SayHello(string greeting)
         {
-            IAsyncStream<string> stream = this.GetStreamProvider("SMSProvider").GetStream<string>(Guid.Empty, "chat");
+            IAsyncStream<string> stream = this.GetStreamProvider("SMSProvider").GetStream<string>(Guid.Empty, "email");
             await stream.OnNextAsync($"{this.GetPrimaryKeyString()} - {greeting}");
 
 

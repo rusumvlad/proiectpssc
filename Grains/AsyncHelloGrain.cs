@@ -18,7 +18,7 @@ namespace Grains
 
         public async override Task OnActivateAsync()
         {
-            IAsyncStream<string> stream = this.GetStreamProvider("SMSProvider").GetStream<string>(Guid.Empty, "chat");
+            IAsyncStream<string> stream = this.GetStreamProvider("SMSProvider").GetStream<string>(Guid.Empty, "email");
             await stream.SubscribeAsync(this);
         }
 

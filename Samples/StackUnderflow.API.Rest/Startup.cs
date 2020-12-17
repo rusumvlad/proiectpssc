@@ -82,6 +82,7 @@ namespace FakeSO.API.Rest
                     .WithReferences()
                     ;
                 })
+                .AddSimpleMessageStreamProvider("SMSProvider", options => { options.FireAndForgetDelivery = true; })
                 //.AddRedisStreams("RedisProvider", c => c.ConfigureRedis(options => options.ConnectionString = "localhost"))
                 .Build();
             client.Connect().Wait();
