@@ -1,13 +1,11 @@
 ﻿using Access.Primitives.Extensions.ObjectExtensions;
 using Access.Primitives.IO;
+using StackUnderflow.Domain.Core.Contexts.Questions;
 using StackUnderflow.Domain.Schema.Questions.CreateAnswerOp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using static StackUnderflow.Domain.Schema.Questions.CreateAnswerOp.CreateReplyResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateAnswerOp
+namespace StackUnderflow.Domain.Adapters.Questions.CreateAnswerOp
 {
     public class CreateReplyAdaptor : Adapter<CreateReplyCmd, ICreateReplyResult, QuestionWriteContext, QuestionDependencies>
     {

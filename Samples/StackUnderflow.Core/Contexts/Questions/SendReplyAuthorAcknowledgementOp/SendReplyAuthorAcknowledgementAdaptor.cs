@@ -1,14 +1,12 @@
 ﻿using Access.Primitives.IO;
 using GrainInterfaces;
 using Orleans;
+using StackUnderflow.Domain.Core.Contexts.Questions;
 using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using static StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp.SendReplyAuthorAcknowledgementResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.SendReplyAuthorAcknowledgementOp
+namespace StackUnderflow.Domain.Adapters.Questions.SendReplyAuthorAcknowledgementOp
 {
     class SendReplyAuthorAcknowledgementAdaptor : Adapter<SendReplyAuthorAcknowledgementCmd, ISendReplyAuthorAcknowledgementResult, QuestionWriteContext, QuestionDependencies>
     {

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Access.Primitives.IO;
 using GrainInterfaces;
 using Orleans;
+using StackUnderflow.Domain.Core.Contexts.Questions;
 using StackUnderflow.Domain.Schema.Questions.SendQuestionOwnerAcknoledgementOperations;
 using static StackUnderflow.Domain.Schema.Questions.SendQuestionOwnerAcknoledgementOperations.SendQuestionOwnerAcknowledgementResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.SendQuestionOwnerAcknoledgementOperations
+namespace StackUnderflow.Domain.Adapters.Questions.SendQuestionOwnerAcknoledgementOperations
 {
     class SendQuestionOwnerAcknowledgementAdaptor : Adapter<SendQuestionOwnerAcknowledgementCmd, ISendQuestionOwnerAcknowledgementResult, QuestionWriteContext, QuestionDependencies>
     {

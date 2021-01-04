@@ -1,9 +1,6 @@
 ﻿using CSharp.Choices;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace StackUnderflow.Domain.Schema.Contexts.Questions.CheckLanguageOp
+namespace StackUnderflow.Domain.Schema.Questions.CheckLanguageOp
 {
     [AsChoice]
     public static partial class CheckLanguageResult

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EarlyPay.Primitives.ValidationAttributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
+namespace StackUnderflow.Domain.Schema.Questions.CreateQuestionOp
 {
     public class CreateQuestionCmd
     {

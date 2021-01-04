@@ -1,12 +1,10 @@
 ﻿using Access.Primitives.IO;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using StackUnderflow.Domain.Core.Contexts.Questions.CheckLanguageOp;
-using static StackUnderflow.Domain.Schema.Contexts.Questions.CheckLanguageOp.CheckLanguageResult;
+using StackUnderflow.Domain.Schmea.Questions.CheckLanguageOp;
+using static StackUnderflow.Domain.Schema.Questions.CheckLanguageOp.CheckLanguageResult;
+using StackUnderflow.Domain.Core.Contexts.Questions;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CheckLanguageOp
+namespace StackUnderflow.Domain.Adapters.Questions.CheckLanguageOp
 {
     public class CheckLanguageAdaptor : Adapter<CheckLanguageCmd, ICheckLanguageResult, QuestionWriteContext, QuestionDependencies>
     {

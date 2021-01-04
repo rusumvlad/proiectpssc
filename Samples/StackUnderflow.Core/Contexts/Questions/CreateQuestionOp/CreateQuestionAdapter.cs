@@ -1,15 +1,12 @@
-﻿using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using static StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp.CreateQuestionResult;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Access.Primitives.IO;
 using Access.Primitives.Extensions.ObjectExtensions;
-using Access.Primitives.IO.Attributes;
-using Access.Primitives.IO.Mocking;
+using StackUnderflow.Domain.Core.Contexts.Questions;
+using StackUnderflow.Domain.Schema.Questions.CreateQuestionOp;
+using static StackUnderflow.Domain.Schema.Questions.CreateQuestionOp.CreateQuestionResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
+
+namespace StackUnderflow.Domain.Adapters.Questions.CreateQuestionOp
 {
       class CreateQuestionAdapter : Adapter<CreateQuestionCmd, ICreateQuestionResult, QuestionWriteContext, QuestionDependencies>
     {

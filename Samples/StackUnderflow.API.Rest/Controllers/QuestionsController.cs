@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Access.Primitives.Extensions.ObjectExtensions;
 using Access.Primitives.IO;
 using Microsoft.AspNetCore.Mvc;
-using StackUnderflow.Domain.Core;
 using StackUnderflow.Domain.Core.Contexts.Questions;
 using StackUnderflow.EF.Models;
 using Access.Primitives.EFCore;
 using LanguageExt;
-using Microsoft.AspNetCore.Http;
-using StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp;
-using StackUnderflow.Domain.Core.Contexts.Questions.SendQuestionOwnerAcknoledgementOperations;
 using StackUnderflow.Domain.Schema.Questions.CreateAnswerOp;
+using StackUnderflow.Domain.Schema.Questions.CreateQuestionOp;
+using StackUnderflow.Domain.Schmea.Questions.CheckLanguageOp;
 using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
 using StackUnderflow.Domain.Schema.Questions.SendQuestionOwnerAcknoledgementOperations;
-using StackUnderflow.EF;
 using Microsoft.EntityFrameworkCore;
-using Orleans;
-using StackUnderflow.Domain.Core.Contexts.Questions.CheckLanguageOp;
+
+
 
 namespace StackUnderflow.API.AspNetCore.Controllers
 {
@@ -48,18 +43,16 @@ namespace StackUnderflow.API.AspNetCore.Controllers
 
             var expr = from createTenantResult in QuestionContext.CreateQuestion(cmd)
                        from checkLanguageResult in QuestionContext.CheckLanguage(new CheckLanguageCmd(cmd.Body))
-                       from sendAckAuthor in QuestionContext.SendQuestionOwnerAcknowledgment(new SendQuestionOwnerAcknowledgementCmd(1, 2))
+                       from sendAckAuthor in QuestionContext.SendQuestionOwnerAcknowledgment(new SendQuestionOwnerAcknowledgementCmd(cmd.QuestionId, 1))
                        select createTenantResult;
 
             var r = await _interpreter.Interpret(expr, ctx, dep);
-
-            await _dbContext.SaveChangesAsync();
 
             _dbContext.Questions.Add(new Question { QuestionId = cmd.QuestionId, Title = cmd.Title, Body = cmd.Body, Tags = cmd.Tags });
             await _dbContext.SaveChangesAsync();
 
             return r.Match(
-                succ => (IActionResult)Ok("Question was added!"),
+                succ => (IActionResult)Ok($"Question[{cmd.Title}] was added with id {cmd.QuestionId}!"),
                 fail => BadRequest("Question could not be added")
                 );
         }
@@ -86,7 +79,7 @@ namespace StackUnderflow.API.AspNetCore.Controllers
             await _dbContext.SaveChangesAsync();
 
             return r.Match(
-                succ => (IActionResult)Ok("Reply was added!"),
+                succ => (IActionResult)Ok($"Reply was added with id {cmd.ReplyId} and questionId {cmd.QuestionId}!"),
                 fail => BadRequest("Reply could not be added")
                 );
         }

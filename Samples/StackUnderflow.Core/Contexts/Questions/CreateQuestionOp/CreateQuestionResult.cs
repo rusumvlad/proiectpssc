@@ -1,9 +1,6 @@
 ﻿using CSharp.Choices;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
+namespace StackUnderflow.Domain.Schema.Questions.CreateQuestionOp
 {
     [AsChoice]
     public static partial class CreateQuestionResult
